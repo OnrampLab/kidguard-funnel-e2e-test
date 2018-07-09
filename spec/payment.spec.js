@@ -42,7 +42,7 @@ const Nightmare = require( "nightmare" ),
         // });
         // start up with the blank list
         beforeEach( function(done)  {
-
+            
             browser
                 .goto( BASE_URL )
                 .evaluate(() => {
@@ -57,15 +57,15 @@ const Nightmare = require( "nightmare" ),
         // disconnect and close Electron process
         afterEach( function(done) {
 
-            browser.end().then(() => {
-                console.log("afterEach");
-                done()
-            });
+            // browser.end().then(() => {
+            //     console.log("afterEach");
+            //     done()
+            // });
 
         });
 
-        it ("should fail with just name", function(done) {
-            console.log("just name");
+        it ("should submit with all forms filled", function(done) {
+            console.log("just name"); 
             browser
                 // inputting name
                 .wait('#headerNav-cta span')
@@ -76,6 +76,7 @@ const Nightmare = require( "nightmare" ),
                 .type("#last_name", "vora")
                 .type("#email", "andrea@gmail.com")
                 .type("#phone", "1111111111")
+                .wait("button[class='submit_button']")
                 .click("button[class='submit_button']")
                 .wait("#theForm")
 
@@ -86,11 +87,49 @@ const Nightmare = require( "nightmare" ),
                         .wait("#password_verify")
                         .type("#password_verify", "password8")
                         .wait("#secret_question")
-                        .select('#secret_question','[value="string:What is your favorite color?"]')
-                        //.click('select[label="What is your favorite color?"]')
-                        .type("#secret_question_answer", "yellow")
-                        .click("button[class='submit_button']")
-                        .wait(10000)
+                        
+                        .evaluate(function() {
+                            return $('select[id="secret_question"] option:contains("color")').val()
+                        })
+                        .then(function(value){
+                            return browser.select('#secret_question', value)
+                        })
+                        .then(function (){
+                            return browser
+                                .type("#secret_question_answer", "yellow")
+                                .wait("button[class='submit_button']")
+                                .click("button[class='submit_button']")
+                                .wait("#stripe-card-number")
+                                .then( function() {
+                                    return browser
+                                        .type("#name_on_card", "andrea vora")
+                                        .wait(1000)
+                                        // .type("input[name='cardnumber']", "4242424242424242")
+                                        .type("#stripe-card-number input", "4242424242424242")
+                                        .wait(1000)
+                                        .type("#stripe-card-cvc input", "424")
+                                        .wait(1000)
+                                        .type("#stripe-card-expiry input", "424")
+                                        .type("#address1", "123 Main Street")
+                                        .type("#city", "Smallville")
+                                        .type("#state", "CA")
+                                        .type("#stripe-postal-code", "12345")
+                                        .click("input[type='checkbox']")
+                                        // .wait(30000)
+
+                                        console.log("friday")
+                                        var selector = document.getElementByClass("btn -btn-success padding-30-lr padding-15-tb -font-lg")
+                                        .then( function() {
+                                            console.log(selector)
+                                            console.log("hello")
+                                        })
+                                        
+                                        // expect($("button[ng-click='vm.submit()']")).toHaveAttr('disabled')
+                                        expect(selector).hasAttribute("disabled").toBe(true)
+                                        // expect(document.getElementById("myBtn")).toContain('')
+                                })
+                        })
+                        
                 })
 
 
@@ -105,95 +144,7 @@ const Nightmare = require( "nightmare" ),
 
         });
 
-        // it ("should fail with just name and address", function() {
-        //     console.log("just name and address");
-        // });
-        //
-        // it ("should fail with just name and city", function() {
-        //     console.log("just name and city");
-        // });
-        //
-        // it ("should fail with just name and state", function() {
-        //     console.log("just name and state");
-        // });
-        //
-        // it ("should fail with just name, address, and city", function() {
-        //     console.log("just name, address, and city");
-        // });
-        //
-        // it ("should fail with just name, address, and state", function() {
-        //     console.log("just name, address, and state");
-        // });
-        //
-        // it ("should fail with just name, address, and zip", function() {
-        //     console.log("just name, address, and zip");
-        // });
-        //
-        // it ("should fail with just name, address, city, and state", function() {
-        //     console.log("just name, address, zip, and state");
-        // });
-        //
-        // it ("should fail with just name, address, city, and zip", function() {
-        //     console.log("just name, address, and zip");
-        // });
-        //
-        // it ("should fail with just name, address, city, and state", function() {
-        //     console.log("just name, address, and state");
-        // });
-        //
-        // it ("should fail with just address", function(){
-        //     console.log("just address");
-        //     //done();
-        // });
-        //
-        // it ("should fail with just address and city", function() {
-        //     console.log("just address and city");
-        // });
-        //
-        // it ("should fail with just address and state", function() {
-        //     console.log("just address and state");
-        // });
-        //
-        // it ("should fail with just address and zip", function() {
-        //     console.log("just address and zip");
-        // });
-        //
-        // it ("should fail with just address, city, and state", function() {
-        //     console.log("just address, city, and state");
-        // });
-        //
-        // it ("should fail with just address, city, and zip", function() {
-        //     console.log("just name, address, and zip");
-        // });
-        //
-        // it ("should fail with just address, city, state, zip", function() {
-        //     console.log("just name, address, zip, and state");
-        // });
-        //
-        // it ("should fail with just city", function() {
-        //     console.log("just city");
-        // });
-        //
-        // it ("should fail with just city and state", function() {
-        //     console.log("just city and state");
-        // });
-        //
-        // it ("should fail with just city, state, and zip", function() {
-        //     console.log("just city, state, and zip");
-        // });
-        //
-        // it ("should fail with just state", function() {
-        //     console.log("just state");
-        // });
-        //
-        // it ("should fail with just state and zip", function() {
-        //     console.log("just state and zip");
-        // });
-        //
-        // it ("should fail with just zip", function() {
-        //     console.log("just zip");
-        // });
-
+        
     });
 
     // describe("A spec to ensure credit info is filled", function() {
