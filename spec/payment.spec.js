@@ -107,16 +107,13 @@ const Nightmare = require( "nightmare" ),
                                         .wait(1000)
                                         .type("input[name='expiration_month']", "4")
                                         .type("input[name='expiration_year']", "24")
+                                        .type("input[name='zipcode']", "12345")
                                       
                                         // SAME AS FUNNEL B
                                         .type("#address1", "123 Main Street")
                                         .type("#city", "Smallville")
                                         .type("#state", "CA")
-                                      
-                                      
-                                        .type("input[name='zipcode']", "12345")
                                         .click("input[type='checkbox']")
-                                        .wait(10000)
                                       
 
 
@@ -139,11 +136,62 @@ const Nightmare = require( "nightmare" ),
 
                                     } else if (url.includes("c?")) {
                                         console.log("funnel c");
+
+                                        return browser
+                                            // SAME AS FUNNEL A
+                                            .type("input[name='name_on_card']", "andrea vora")
+                                            .wait(1000)
+                                            .type("input[name='card_number']", "4242424242424242")
+                                            .wait(1000)
+                                            .type("input[name='cvv']", "424")
+                                            .type("input[name='zipcode']", "12345")
+
+                                            .wait(2000)
+                                            .type("input[name='expirationMY']", "0424")
+                                            .wait(2000)
+
+                                            // SAME AS FUNNEL B
+                                            .type("#address1", "123 Main Street")
+                                            .type("#city", "Smallville")
+                                            .type("#state", "CA")
+                                            .click("input[type='checkbox']")
+                                            .wait(10000)
+
+
                                     } else if (url.includes("d?")) {
                                         console.log("funnel d");
+
+                                        return browser
+
+                                            // EXACT SAME AS FUNNEL C
+
+                                            // SAME AS FUNNEL A
+                                            .type("input[name='name_on_card']", "andrea vora")
+                                            .wait(1000)
+                                            .type("input[name='card_number']", "4242424242424242")
+                                            .wait(1000)
+                                            .type("input[name='cvv']", "424")
+
+
+                                            .wait(2000)
+                                            .type("input[name='expirationMY']", "0424")
+                                            .wait(2000)
+
+                                            // SAME AS FUNNEL B
+                                            .type("#address1", "123 Main Street")
+                                            .type("#city", "Smallville")
+                                            .type("#state", "CA")
+
+
+                                            .type("input[name='zipcode']", "12345")
+                                            .click("input[type='checkbox']")
+                                            .wait(10000)
+
+
                                     }
 
                                     
+                                    .wait(10000)
 
                                     
 
