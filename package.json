@@ -12,7 +12,11 @@
     "jasmine-console-reporter": "^3.0.2"
   },
   "scripts": {
-    "test": "jasmine spec/**/*.spec.js"
+    "test": "jasmine payment.spec.js",
+    "testa": "jasmine ./tests/payment/001/a/apayment.spec.js",
+    "testb": "jasmine ./tests/payment/001/b/bpayment.spec.js",
+    "testc": "jasmine ./tests/payment/001/c/cpayment.spec.js",
+    "testd": "jasmine ./tests/payment/001/d/dpayment.spec.js"
   },
   "author": "",
   "license": "ISC"
