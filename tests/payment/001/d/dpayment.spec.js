@@ -1,4 +1,6 @@
 "use strict";
+var myModule = require('../../payment.library.js');
+
 const Nightmare = require( "nightmare" ),
       expect = require( "chai" ).expect,
       BASE_URL = "https://www.kidguard.com/funnel/payment/011/d?first_name=Vernon&last_name=Swanson&email=zinoto%40mailinator.com&phone=%2B921-79-3649008&site=cellmon&log_id=12574785&password=Pa%24%24w0rd!&password_verify=Pa%24%24w0rd!&secret_question_answer=Reprehenderit%20sunt%20voluptatibus%20non%20repudiandae%20q&secret_question=What%20was%20your%20first%20grade%20teacher%27s%20name%3F"
@@ -42,41 +44,10 @@ const Nightmare = require( "nightmare" ),
 
         });
 
-        it ("should submit with all forms filled for 'try now' button", function(done) {
-            // formABCD_input(browser);
-            // formACD_input(browser);
-            // formCD_input(browser);
-            // done();
-
-            browser
-                .wait("input[type='checkbox']")
-                .type("#address1", "123 Main Street")
-                .type("#city", "Smallville")
-                .type("#state", "CA")
-                .click("input[type='checkbox']")
-                .type("input[name='name_on_card']", "andrea vora")
-
-                .wait(1000)
-                .type("input[name='card_number']", "4242424242424242")
-                .wait(1000)
-                .type("input[name='cvv']", "424")
-                .type("input[name='zipcode']", "12345")
-                .wait(1000)
-
-                .wait(2000)
-                .type("input[name='expirationMY']", "0424")
-                .wait(2000)
-
-                .then(( ) => {
-                    // .wait(10000)
-                    console.log("finished");
-                    done();
-                })
-                .catch((err) => {
-                    console.error('error: ', err);
-                    done(err);
-                });
-
-
+        it ("should submit with all forms filled for 'try now' button", function() {
+            myModule.formABCD_input(browser);
+            myModule.formACD_input(browser);
+            myModule.formCD_input(browser);
+            
         });
     });

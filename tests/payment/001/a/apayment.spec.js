@@ -1,6 +1,5 @@
 "use strict";
-// import { formABCD_input, formA_input, formB_input, formACD_input, formCD_input } from 'payment.library.js';
-// var myModule = require('./payment.library.js');
+var myModule = require('../../payment.library.js');
 
 const Nightmare = require( "nightmare" ),
       expect = require( "chai" ).expect,
@@ -45,43 +44,10 @@ const Nightmare = require( "nightmare" ),
 
         });
 
-        it ("should submit with all forms filled for 'try now' button", function(done) {
-            // myModule.formABCD_input(browser);
-            // myModule.formACD_input(browser);
-            // myModule.formA_input(browser);
-
-            browser
-                .wait("input[type='checkbox']")
-                // .wait(3000)
-                .type("#address1", "123 Main Street")
-                .type("#city", "Smallville")
-                .type("#state", "CA")
-                .click("input[type='checkbox']")
-
-                .type("input[name='name_on_card']", "andrea vora")
-                .wait(1000)
-                .type("input[name='card_number']", "4242424242424242")
-                .wait(1000)
-                .type("input[name='cvv']", "424")
-                .type("input[name='zipcode']", "12345")
-                .wait(1000)
-
-                .type("input[name='expiration_month']", "4")
-                .type("input[name='expiration_year']", "24")
-                .wait(1000)
-
-                .then(( ) => {
-                    // .wait(10000)
-                    console.log("finished");
-                    done();
-                })
-                .catch((err) => {
-                    console.error('error: ', err);
-                    done(err);
-                });
-
-
-
+        it ("should submit with all forms filled for 'try now' button", function() {
+            myModule.formABCD_input(browser);
+            myModule.formACD_input(browser);
+            myModule.formA_input(browser);
 
         });
     });

@@ -34,16 +34,7 @@ module.exports.formB_input = function (browser) {
         .type("#stripe-card-expiry input", "424")
         .wait(1000)
         .type("#stripe-postal-code", "12345")
-        .wait(1000)
-
-        .then(( ) => {
-            console.log("finished");
-            done();
-        })
-        .catch((err) => {
-            console.error('error: ', err);
-            done(err);
-        });
+        .wait(1000);
 }
 
 
@@ -58,15 +49,6 @@ module.exports.formA_input = function (browser) {
         // .evaluate(function() {
         //     return document.querySelector('#links .result__a')
         // })
-    
-        .then(( ) => {
-            console.log("finished");
-            done();
-        })
-        .catch((err) => {
-            console.error('error: ', err);
-            done(err);
-        });
 }
 
 module.exports.formCD_input = function (browser) {
@@ -75,15 +57,4 @@ module.exports.formCD_input = function (browser) {
         .wait(2000)
         .type("input[name='expirationMY']", "0424")
         .wait(2000)
-
-        .then(( ) => {
-            console.log("finished");
-            done();
-        })
-        .catch((err) => {
-            console.error('error: ', err);
-            done(err);
-        });
 }
-
-    // export { formABCD_input, formA_input, formB_input, formACD_input, formCD_input };
