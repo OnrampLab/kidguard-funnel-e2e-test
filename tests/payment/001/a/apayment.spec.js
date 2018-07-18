@@ -44,10 +44,11 @@ const Nightmare = require( "nightmare" ),
 
         });
 
-        it ("should submit with all forms filled for 'try now' button", function() {
-            myModule.formABCD_input(browser);
-            myModule.formACD_input(browser);
-            myModule.formA_input(browser);
+        it ("should submit with all forms filled for 'try now' button", function(done) {
+            myModule.formABCD_input(browser, done);
+            // myModule.formACD_input(browser);
+            // myModule.formA_input(browser);
+            // myModule.submit_check(browser);
 
         });
     });
