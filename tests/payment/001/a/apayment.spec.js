@@ -9,6 +9,9 @@ const Nightmare = require( "nightmare" ),
         console.error( "Test-runner failed:", err );
       },
       browser = new Nightmare({
+            openDevTools: {
+            mode: 'detach'
+          },
           height: 768,
           width: 1024,
           show: true,
@@ -46,9 +49,6 @@ const Nightmare = require( "nightmare" ),
 
         it ("should submit with all forms filled for 'try now' button", function(done) {
             myModule.formABCD_input(browser, done);
-            // myModule.formACD_input(browser);
-            // myModule.formA_input(browser);
-            // myModule.submit_check(browser);
 
         });
     });

@@ -21,8 +21,13 @@ module.exports.formABCD_input = function (browser, done) {
                 formACD_input(browser, url, done);
             }
         });
+        // .catch((err) => {
+        //     console.error('error: ', err);
+        //     done(err);
+        // });
 }
 
+// module.exports.formB_input = function (browser, done) {
 function formB_input(browser, done) {
         console.log("b");
         browser
@@ -40,8 +45,12 @@ function formB_input(browser, done) {
             .then(( ) => {
                 submit_check(browser, done)
             });
+    
+            
+            
 }
 
+// module.exports.formACD_input = function (browser) {
 function formACD_input(browser, url, done) {
     console.log("acd");
     browser
@@ -61,6 +70,10 @@ function formACD_input(browser, url, done) {
         
 }
 
+
+
+
+// module.exports.formA_input = function (browser, done) {
 function formA_input(browser, done) {
     console.log("a");
     browser
@@ -73,6 +86,7 @@ function formA_input(browser, done) {
         });
 }
 
+// module.exports.formCD_input = function (browser, done) {
 function formCD_input(browser, done) {
     console.log("cd");
     browser
@@ -85,6 +99,7 @@ function formCD_input(browser, done) {
         });
 }
 
+// module.exports.submit_check = function (browser, done) {
 function submit_check(browser, done) {
     console.log("submit check");
     browser
@@ -94,10 +109,15 @@ function submit_check(browser, done) {
         })
         .then(function(submit_button) {
             console.log(submit_button);
-            expect(submit_button).toBe(null); 
+            // expect(submit_button).not.toContain('disabled = "disabled"');
+            // expect(submit_button).toContain("disabled");
+            // expect(submit_button.length).toBe(3);
+            expect(submit_button).toBe(null);
+            
         })
 
         .then(( ) => {
+            // .wait(10000)
             console.log("finished")
             done();
         })

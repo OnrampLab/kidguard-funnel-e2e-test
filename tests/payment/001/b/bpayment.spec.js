@@ -45,7 +45,5 @@ const Nightmare = require( "nightmare" ),
 
         it ("should submit with all forms filled for 'try now' button", function(done) {
             myModule.formABCD_input(browser, done);
-            // myModule.formB_input(browser);
-            
         });
     });
