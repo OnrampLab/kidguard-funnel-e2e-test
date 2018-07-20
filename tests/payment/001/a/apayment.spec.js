@@ -1,5 +1,5 @@
 "use strict";
-var myModule = require('../../payment.library.js');
+var myModule = require('../../abstracted.library.js');
 
 const Nightmare = require( "nightmare" ),
       expect = require( "chai" ).expect,
@@ -48,7 +48,10 @@ const Nightmare = require( "nightmare" ),
         });
 
         it ("should submit with all forms filled for 'try now' button", function(done) {
-            myModule.formABCD_input(browser, done);
+            console.log("abstracted a");
+            var selectors = {"address": "#address1", "city": "#city", "state": "#state", "checkbox": "input[type='checkbox']", "name": "input[name='name_on_card']", "cardnum": "input[name='card_number']", "cvv": "input[name='cvv']", "zipcode": "input[name='zipcode']", "expmonth": "input[name='expiration_month']", "expyear": "input[name='expiration_year']"};
+            var input = {"address": "123 Main Street", "city": "Smallville", "state": "CA", "name": "Andrea Vora", "cardnum": "4242424242424242", "cvv": "123", "zipcode": "12345", "expmonth": "04", "expyear": "24"};
+            myModule.formABCD_input(browser, done, selectors, input);
 
         });
     });

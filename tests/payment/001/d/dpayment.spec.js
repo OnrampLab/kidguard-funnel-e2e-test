@@ -1,10 +1,9 @@
 "use strict";
-var myModule = require('../../payment.library.js');
+var myModule = require('../../abstracted.library.js');
 
 const Nightmare = require( "nightmare" ),
       expect = require( "chai" ).expect,
-      BASE_URL = "https://www.kidguard.com/funnel/payment/011/d?first_name=Vernon&last_name=Swanson&email=zinoto%40mailinator.com&phone=%2B921-79-3649008&site=cellmon&log_id=12574785&password=Pa%24%24w0rd!&password_verify=Pa%24%24w0rd!&secret_question_answer=Reprehenderit%20sunt%20voluptatibus%20non%20repudiandae%20q&secret_question=What%20was%20your%20first%20grade%20teacher%27s%20name%3F"
-      ,
+      BASE_URL = "https://www.kidguard.com/funnel/payment/011/c?first_name=Vernon&last_name=Swanson&email=zinoto%40mailinator.com&phone=%2B921-79-3649008&site=cellmon&log_id=12574785&password=Pa%24%24w0rd!&password_verify=Pa%24%24w0rd!&secret_question_answer=Reprehenderit%20sunt%20voluptatibus%20non%20repudiandae%20q&secret_question=What%20was%20your%20first%20grade%20teacher%27s%20name%3F",
       onError = ( err ) => {
         console.error( "Test-runner failed:", err );
       },
@@ -45,6 +44,9 @@ const Nightmare = require( "nightmare" ),
         });
 
         it ("should submit with all forms filled for 'try now' button", function(done) {
-            myModule.formABCD_input(browser, done);
+            console.log("abstracted d");
+            var selectors = {"address": "#address1", "city": "#city", "state": "#state", "checkbox": "input[type='checkbox']", "name": "input[name='name_on_card']", "cardnum": "input[name='card_number']", "cvv": "input[name='cvv']", "zipcode": "input[name='zipcode']", "exp": "input[name='expirationMY']"};
+            var input = {"address": "123 Main Street", "city": "Smallville", "state": "CA", "name": "Andrea Vora", "cardnum": "4242424242424242", "cvv": "123", "zipcode": "12345", "exp": "0424"};
+            myModule.formABCD_input(browser, done, selectors, input);
         });
     });

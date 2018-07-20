@@ -1,5 +1,5 @@
 "use strict";
-var myModule = require('../../payment.library.js');
+var myModule = require('../../abstracted.library.js');
 
 const Nightmare = require( "nightmare" ),
       expect = require( "chai" ).expect,
@@ -44,6 +44,9 @@ const Nightmare = require( "nightmare" ),
         });
 
         it ("should submit with all forms filled for 'try now' button", function(done) {
-            myModule.formABCD_input(browser, done);
+            console.log("abstracted b");
+            var selectors = {"address": "#address1", "city": "#city", "state": "#state", "checkbox": "input[type='checkbox']", "name": "#name_on_card", "cardnum": "#stripe-card-number input", "cvv": "#stripe-card-cvc input", "exp": "#stripe-card-expiry input", "zipcode": "#stripe-postal-code"};
+            var input = {"address": "123 Main Street", "city": "Smallville", "state": "CA", "name": "Andrea Vora", "cardnum": "4242424242424242", "cvv": "123", "zipcode": "12345", "exp": "0424"};
+            myModule.formABCD_input(browser, done, selectors, input);
         });
     });
