@@ -1,0 +1,11 @@
+{
+    "address": "#address1", 
+    "city": "#city", 
+    "state": "#state", 
+    "checkbox": "input[type='checkbox']", 
+    "name": "#name_on_card",
+    "cardnum": "#stripe-card-number input", 
+    "cvc": "#stripe-card-cvc input",
+    "exp": "#stripe-card-expiry input",
+    "zipcode": "#stripe-postal-code"
+}
