@@ -2,10 +2,11 @@
 var myModule = require('../../payment.library.js');
 var selectors = require('./selector_a.json');
 var input = require('../../data.json');
+var helper = require('../../formhelper.js');
 
 const Nightmare = require( "nightmare" ),
       expect = require( "chai" ).expect,
-      BASE_URL = "https://www.kidguard.com/funnel/payment/011/a?first_name=Vernon&last_name=Swanson&email=zinoto@mailinator.com&phone=+921-79-3649008&site=cellmon&log_id=12574785&password=Pa$$w0rd!&password_verify=Pa$$w0rd!&secret_question_answer=Reprehenderit%20sunt%20voluptatibus%20non%20repudiandae%20q&secret_question=What%20was%20your%20first%20grade%20teacher%27s%20name%3F"
+      BASE_URL = helper.urlgenerator('011/a?', 'Andrea', 'Vora', 'andrea@gmail.com', '1234567890', 'password8', 'password8', 'Reprehenderit sunt voluptatibus non repudiandae q', "What was your first grade teacher's name?")
       ,
       onError = ( err ) => {
         console.error( "Test-runner failed:", err );
@@ -42,15 +43,12 @@ const Nightmare = require( "nightmare" ),
         // disconnect and close Electron process
         afterEach( function(done) {
             browser.end().then(() => {
-                console.log("afterEach");
                 done()
             });
 
         });
 
         it ("should submit with all forms filled for 'try now' button", function(done) {
-            console.log("hello abstracted a");        
-            myModule.formABCD_input(browser, done, selectors, input);
-
+            myModule.formABCD_input(browser, done, selectors, input);     
         });
     });

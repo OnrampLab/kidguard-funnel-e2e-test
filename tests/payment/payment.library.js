@@ -1,7 +1,7 @@
 const Nightmare = require( "nightmare" );
+const querystring = require('querystring');
 
 module.exports.formABCD_input = function (browser, done, selectors, input) {
-    console.log("abcd");
     browser
         .wait(selectors["checkbox"])
         .type(selectors["address"], input["address"])
@@ -13,10 +13,11 @@ module.exports.formABCD_input = function (browser, done, selectors, input) {
         .type(selectors["name"], input["name"])
         .wait(1000)
         .type(selectors["cardnum"], input["cardnum"])
+        .wait(1000)
         .type(selectors["cvc"], input["cvc"])
         .type(selectors["zipcode"], input["zipcode"])
         
-        .then(function (){
+        .then(function () {
             if (selectors.exp) {
                 return browser
                     .wait(selectors["exp"])
@@ -35,7 +36,6 @@ module.exports.formABCD_input = function (browser, done, selectors, input) {
         })
 
         .then(( ) => {
-            console.log("finished")
             done();
         })
         .catch((err) => {
