@@ -18,7 +18,20 @@ module.exports.urlgenerator = function (version, first, last, email, phone, pswd
     return ('https://www.kidguard.com/funnel/payment/' + version + url)
 }
 
-module.exports.selectorgenerator = function () {
-
+module.exports.selectorgenerator = function (name, cardnum, cvc, zipcode, exp, expmonth, expyear) {
+    var selectors = { 
+        "address": "#address1", 
+        "city": "#city", 
+        "state": "#state", 
+        "checkbox": "input[type='checkbox']", 
+        "name": name,
+        "cardnum": cardnum,
+        "cvc": cvc, 
+        "zipcode": zipcode,
+        "exp": exp,
+        "expmonth": expmonth, 
+        "expyear": expyear
+    }
+    return selectors;
 }
 

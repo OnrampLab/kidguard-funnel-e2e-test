@@ -1,6 +1,5 @@
 "use strict";
 var myModule = require('../../payment.library.js');
-var selectors = require('./selector_b.json');
 var input = require('../../data.json');
 var helper = require('../../formhelper.js');
 
@@ -47,6 +46,15 @@ const Nightmare = require( "nightmare" ),
         });
 
         it ("should submit with all forms filled for 'try now' button", function(done) {
+            var selectors = helper.selectorgenerator( 
+                                                        "#name_on_card",
+                                                        "#stripe-card-number input",
+                                                        "#stripe-card-cvc input", 
+                                                        "#stripe-postal-code",
+                                                        "#stripe-card-expiry input",
+                                                        "0", 
+                                                        "0"
+                                                    );
             myModule.formABCD_input(browser, done, selectors, input);
         });
     });

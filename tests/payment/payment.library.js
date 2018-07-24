@@ -18,7 +18,7 @@ module.exports.formABCD_input = function (browser, done, selectors, input) {
         .type(selectors["zipcode"], input["zipcode"])
         
         .then(function () {
-            if (selectors.exp) {
+            if (selectors.exp != 0) {
                 return browser
                     .wait(selectors["exp"])
                     .type(selectors["exp"], input["exp"])

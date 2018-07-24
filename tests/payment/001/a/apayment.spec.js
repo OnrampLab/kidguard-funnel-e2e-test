@@ -1,12 +1,21 @@
 "use strict";
 var myModule = require('../../payment.library.js');
-var selectors = require('./selector_a.json');
-var input = require('../../data.json');
 var helper = require('../../formhelper.js');
+var input = require('../../data.json');
 
 const Nightmare = require( "nightmare" ),
       expect = require( "chai" ).expect,
-      BASE_URL = helper.urlgenerator('011/a?', 'Andrea', 'Vora', 'andrea@gmail.com', '1234567890', 'password8', 'password8', 'Reprehenderit sunt voluptatibus non repudiandae q', "What was your first grade teacher's name?")
+      BASE_URL = helper.urlgenerator(
+                                        '011/a?', 
+                                        'Andrea', 
+                                        'Vora', 
+                                        'andrea@gmail.com', 
+                                        '1234567890', 
+                                        'password8', 
+                                        'password8', 
+                                        'Reprehenderit sunt voluptatibus non repudiandae q', 
+                                        "What was your first grade teacher's name?"
+                                    )
       ,
       onError = ( err ) => {
         console.error( "Test-runner failed:", err );
@@ -49,6 +58,16 @@ const Nightmare = require( "nightmare" ),
         });
 
         it ("should submit with all forms filled for 'try now' button", function(done) {
+
+            var selectors = helper.selectorgenerator( 
+                                                        "input[name='name_on_card']",
+                                                        "input[name='card_number']",
+                                                        "input[name='cvv']", 
+                                                        "input[name='zipcode']",
+                                                        "0",
+                                                        "input[name='expiration_month']", 
+                                                        "input[name='expiration_year']"
+                                                    );
             myModule.formABCD_input(browser, done, selectors, input);     
         });
     });

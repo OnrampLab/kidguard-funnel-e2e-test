@@ -1,7 +1,6 @@
 "use strict";
 var myModule = require('../../payment.library.js');
 var helper = require('../../formhelper.js');
-var selectors = require('../c/selector_cd.json');
 var input = require('../../data.json');
 
 const Nightmare = require( "nightmare" ),
@@ -47,6 +46,15 @@ const Nightmare = require( "nightmare" ),
         });
 
         it ("should submit with all forms filled for 'try now' button", function(done) {
+            var selectors = helper.selectorgenerator( 
+                                                        "input[name='name_on_card']",
+                                                        "input[name='card_number']",
+                                                        "input[name='cvv']", 
+                                                        "input[name='zipcode']",
+                                                        "input[name='expirationMY']",
+                                                        "0", 
+                                                        "0"
+                                                    );
             myModule.formABCD_input(browser, done, selectors, input);
         });
     });
