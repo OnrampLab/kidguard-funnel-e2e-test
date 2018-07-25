@@ -3,27 +3,24 @@ var myModule = require('../../payment.library.js');
 var helper = require('../../formhelper.js');
 var input = require('../../data.json');
 
+const form = { 
+                "name": "input[name='name_on_card']", 
+                "cardnum": "input[name='card_number']", 
+                "cvc": "input[name='cvv']", 
+                "zipcode": "input[name='zipcode']", 
+                "exp": "0", 
+                "expmonth": "input[name='expiration_month']", 
+                "expyear": "input[name='expiration_year']" 
+            }
+const form_type = "011/a?";          
+
 const Nightmare = require( "nightmare" ),
       expect = require( "chai" ).expect,
-      BASE_URL = helper.urlgenerator(
-                                        '011/a?', 
-                                        'Andrea', 
-                                        'Vora', 
-                                        'andrea@gmail.com', 
-                                        '1234567890', 
-                                        'password8', 
-                                        'password8', 
-                                        'Reprehenderit sunt voluptatibus non repudiandae q', 
-                                        "What was your first grade teacher's name?"
-                                    )
-      ,
+      BASE_URL = helper.urlgenerator(form_type),
       onError = ( err ) => {
         console.error( "Test-runner failed:", err );
       },
       browser = new Nightmare({
-        //     openDevTools: {
-        //     mode: 'detach'
-        //   },
           height: 768,
           width: 1024,
           show: true,
@@ -58,16 +55,7 @@ const Nightmare = require( "nightmare" ),
         });
 
         it ("should submit with all forms filled for 'try now' button", function(done) {
-
-            var selectors = helper.selectorgenerator( 
-                                                        "input[name='name_on_card']",
-                                                        "input[name='card_number']",
-                                                        "input[name='cvv']", 
-                                                        "input[name='zipcode']",
-                                                        "0",
-                                                        "input[name='expiration_month']", 
-                                                        "input[name='expiration_year']"
-                                                    );
+            var selectors = helper.selectorgenerator(form);
             myModule.formABCD_input(browser, done, selectors, input);     
         });
     });

@@ -1,36 +1,33 @@
 const querystring = require('querystring');
 
-module.exports.urlgenerator = function (version, first, last, email, phone, pswd, pswd_verify, secret_answer, secret_q) {
-    // 011/a?first_name=Vernon&last_name=Swanson&email=zinoto@mailinator.com&phone=+921-79-3649008&site=cellmon&log_id=12574785&password=Pa$$w0rd!&password_verify=Pa$$w0rd!&secret_question_answer=&secret_question=%3F
-    // console.log(url);
+module.exports.urlgenerator = function (form) {
     var url =  querystring.stringify(
         { 
-            // '': '011/a?',
-            first_name: first,
-            last_name: last,
-            email: email,
-            phone: phone,
-            password: pswd,
-            password_verify: pswd_verify,
-            secret_question_answer: secret_answer,
-            secret_question: secret_q 
-        });  
-    return ('https://www.kidguard.com/funnel/payment/' + version + url)
+            first_name: "Andrea",
+            last_name: "Vora",
+            email: "andrea@gmail.com",
+            phone: "1234567890",
+            password: "password8",
+            password_verify: "password8",
+            secret_question_answer: "Reprehenderit sunt voluptatibus non repudiandae q",
+            secret_question: "What was your first grade teacher's name?" 
+        }); 
+    return ('https://www.kidguard.com/funnel/payment/' + form + url)
 }
 
-module.exports.selectorgenerator = function (name, cardnum, cvc, zipcode, exp, expmonth, expyear) {
+module.exports.selectorgenerator = function (form) {
     var selectors = { 
         "address": "#address1", 
         "city": "#city", 
         "state": "#state", 
         "checkbox": "input[type='checkbox']", 
-        "name": name,
-        "cardnum": cardnum,
-        "cvc": cvc, 
-        "zipcode": zipcode,
-        "exp": exp,
-        "expmonth": expmonth, 
-        "expyear": expyear
+        "name": form["name"],
+        "cardnum": form["cardnum"],
+        "cvc": form["cvc"], 
+        "zipcode": form["zipcode"],
+        "exp": form["exp"],
+        "expmonth": form["expmonth"], 
+        "expyear": form["expyear"]
     }
     return selectors;
 }

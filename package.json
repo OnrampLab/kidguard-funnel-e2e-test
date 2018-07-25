@@ -6,7 +6,8 @@
   "dependencies": {
     "chai": "^4.1.2",
     "jasmine": "^3.1.0",
-    "nightmare": "^3.0.1"
+    "nightmare": "^3.0.1",
+    "query-string": "^6.1.0"
   },
   "devDependencies": {
     "eslint": "^4.19.1",

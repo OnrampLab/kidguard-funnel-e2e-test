@@ -3,10 +3,21 @@ var myModule = require('../../payment.library.js');
 var input = require('../../data.json');
 var helper = require('../../formhelper.js');
 
+const form = { 
+                "name": "#name_on_card", 
+                "cardnum": "#stripe-card-number input", 
+                "cvc": "#stripe-card-cvc input", 
+                "zipcode": "#stripe-postal-code", 
+                "exp": "#stripe-card-expiry input", 
+                "expmonth": "0", 
+                "expyear": "0" 
+            };
+
+const form_type = "011/b?";
+
 const Nightmare = require( "nightmare" ),
       expect = require( "chai" ).expect,
-      BASE_URL = helper.urlgenerator('011/b?', 'Andrea', 'Vora', 'andrea@gmail.com', '1234567890', 'password8', 'password8', 'Reprehenderit sunt voluptatibus non repudiandae q', "What was your first grade teacher's name?")      
-      ,
+      BASE_URL = helper.urlgenerator(form_type),
       onError = ( err ) => {
         console.error( "Test-runner failed:", err );
       },
@@ -46,15 +57,7 @@ const Nightmare = require( "nightmare" ),
         });
 
         it ("should submit with all forms filled for 'try now' button", function(done) {
-            var selectors = helper.selectorgenerator( 
-                                                        "#name_on_card",
-                                                        "#stripe-card-number input",
-                                                        "#stripe-card-cvc input", 
-                                                        "#stripe-postal-code",
-                                                        "#stripe-card-expiry input",
-                                                        "0", 
-                                                        "0"
-                                                    );
+            var selectors = helper.selectorgenerator(form);
             myModule.formABCD_input(browser, done, selectors, input);
         });
     });
