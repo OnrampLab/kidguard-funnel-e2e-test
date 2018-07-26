@@ -2,6 +2,7 @@ const Nightmare = require( "nightmare" );
 const querystring = require('querystring');
 
 module.exports.formABCD_input = function (browser, done, selectors, input) {
+    console.log("\n Test for version " + selectors["version"]);
     browser
         .wait(selectors["checkbox"])
         .type(selectors["address"], input["address"])
@@ -32,7 +33,7 @@ module.exports.formABCD_input = function (browser, done, selectors, input) {
         })
 
         .then(function() {
-            submit_check(browser, done);
+            return submit_check(browser, done);
         })
 
         .then(( ) => {
@@ -46,7 +47,7 @@ module.exports.formABCD_input = function (browser, done, selectors, input) {
 }
 
 function submit_check(browser, done) {
-    browser
+    return browser
         /* expectation to determine if submit button is enabled */
         .evaluate(function() {
             return $('button').attr('disabled');
@@ -56,7 +57,6 @@ function submit_check(browser, done) {
         })
 
         .then(( ) => {
-            console.log("finished")
             done();
         })
         .catch((err) => {

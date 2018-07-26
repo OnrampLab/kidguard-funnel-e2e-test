@@ -15,7 +15,7 @@ module.exports.urlgenerator = function (form) {
     return ('https://www.kidguard.com/funnel/payment/' + form + url)
 }
 
-module.exports.selectorgenerator = function (form) {
+module.exports.selectorgenerator = function (form, type) {
     var selectors = { 
         "address": "#address1", 
         "city": "#city", 
@@ -27,7 +27,8 @@ module.exports.selectorgenerator = function (form) {
         "zipcode": form["zipcode"],
         "exp": form["exp"],
         "expmonth": form["expmonth"], 
-        "expyear": form["expyear"]
+        "expyear": form["expyear"],
+        "version": type
     }
     return selectors;
 }

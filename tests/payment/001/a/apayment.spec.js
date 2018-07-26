@@ -12,11 +12,11 @@ const form = {
                 "expmonth": "input[name='expiration_month']", 
                 "expyear": "input[name='expiration_year']" 
             }
-const form_type = "011/a?";          
+const version = "011/a?";          
 
 const Nightmare = require( "nightmare" ),
       expect = require( "chai" ).expect,
-      BASE_URL = helper.urlgenerator(form_type),
+      BASE_URL = helper.urlgenerator(version),
       onError = ( err ) => {
         console.error( "Test-runner failed:", err );
       },
@@ -55,7 +55,7 @@ const Nightmare = require( "nightmare" ),
         });
 
         it ("should submit with all forms filled for 'try now' button", function(done) {
-            var selectors = helper.selectorgenerator(form);
+            var selectors = helper.selectorgenerator(form, version);
             myModule.formABCD_input(browser, done, selectors, input);     
         });
     });

@@ -9,6 +9,12 @@
     "nightmare": "^3.0.1",
     "query-string": "^6.1.0"
   },
+  "spec_files": [
+    "./tests/payment/001/a/apayment.spec.js",
+    "./tests/payment/001/b/bpayment.spec.js",
+    "./tests/payment/001/c/cpayment.spec.js",
+    "/tests/payment/001/d/dpayment.spec.js"
+  ],
   "devDependencies": {
     "eslint": "^4.19.1",
     "eslint-config-airbnb": "^17.0.0",
@@ -18,7 +24,7 @@
     "jasmine-console-reporter": "^3.0.2"
   },
   "scripts": {
-    "test": "jasmine payment.spec.js",
+    "test": "jasmine ./tests/payment/001/a/apayment.spec.js ./tests/payment/001/b/bpayment.spec.js ./tests/payment/001/c/cpayment.spec.js jasmine ./tests/payment/001/d/dpayment.spec.js",
     "testa": "jasmine ./tests/payment/001/a/apayment.spec.js",
     "testb": "jasmine ./tests/payment/001/b/bpayment.spec.js",
     "testc": "jasmine ./tests/payment/001/c/cpayment.spec.js",

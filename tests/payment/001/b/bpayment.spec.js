@@ -13,11 +13,11 @@ const form = {
                 "expyear": "0" 
             };
 
-const form_type = "011/b?";
+const version = "011/b?";
 
 const Nightmare = require( "nightmare" ),
       expect = require( "chai" ).expect,
-      BASE_URL = helper.urlgenerator(form_type),
+      BASE_URL = helper.urlgenerator(version),
       onError = ( err ) => {
         console.error( "Test-runner failed:", err );
       },
@@ -57,7 +57,7 @@ const Nightmare = require( "nightmare" ),
         });
 
         it ("should submit with all forms filled for 'try now' button", function(done) {
-            var selectors = helper.selectorgenerator(form);
+            var selectors = helper.selectorgenerator(form, version);
             myModule.formABCD_input(browser, done, selectors, input);
         });
     });
