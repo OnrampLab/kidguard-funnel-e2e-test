@@ -31,45 +31,53 @@ const form = {
 }
 
 const Nightmare = require( "nightmare" ),
-      expect = require( "chai" ).expect,
-      BASE_URL = "https://www.kidguard.com/funnel/form/001/b?lander=home&",
-      onError = ( err ) => {
+    expect = require( "chai" ).expect,
+    BASE_URL = "https://www.kidguard.com/funnel/form/001/b?lander=home&",
+    onError = ( err ) => {
         console.error( "Test-runner failed:", err );
-      },
-      browser = new Nightmare({
+    },
+    browser = new Nightmare({
         height: 678,
         width: 1024,
         show: true,
         typeInterval: 20,
         pollInterval: 5000,
         waitTimeout: 30000,
-      });
-      jasmine.DEFAULT_TIMEOUT_INTERVAL = 50000;
+    });
+    jasmine.DEFAULT_TIMEOUT_INTERVAL = 50000;
 
 
+    describe("Testing Funnel 1B Sign-Up/Log-in Page", function() {
 
-      describe("Testing Funnel 1B Sign-Up/Log-in Page", function(){
-
-          beforeEach(function(done) {
-              browser
-                  .goto(BASE_URL)
-                  .evaluate(() => {
-                      localStorage.clear();
-                      return window.location.href;
-                  })
-                  .then((url) => {
-                      console.log('Entering ' + url);
-                      done();
-                  })
-                  .catch((error) => {
-                      console.log('error')
-                      done(error)
-                  });
-          });
-
-          it("Landing page 1B Sign-Up/Log-in test", function(done) {
-
+        beforeEach(function(done) {
             browser
+                .goto(BASE_URL)
+                .evaluate(() => {
+                    localStorage.clear();
+                    return window.location.href;
+                })
+                .then((url) => {
+                    console.log('Entering ' + url);
+                    done();
+                })
+                .catch((error) => {
+                    console.log('error')
+                    done(error)
+                });
+        });
+
+        afterEach( function(done) {
+            browser.end().then(() => {
+                done()
+            });
+
+        });
+
+        it("Landing page 1B Sign-Up/Log-in test", async function () {
+
+            // const texas = await browser
+            await browser
+            
                 //SAME
                 .goto(BASE_URL)
                 .wait('#first_name')
@@ -83,14 +91,15 @@ const Nightmare = require( "nightmare" ),
                     return $('select[id="state"] option:contains("TX")').val();
                 })
 
-                .then(function(texas){
-                    console.log(texas);
-                    return browser
-                        .select('#state', texas)
+                .then( async function(state){
+                    console.log(state);
+                    await browser
+                        .select('#state', state)
                         .wait('#zipcode')
                         .type('input[id="zipcode"]', '75074')
 
                         .click('button.submit_button')
+
                         /*
                         SECOND PAGE FOR FUNNEL 1B
                         includes password,verify password, and security question/answer
@@ -101,84 +110,23 @@ const Nightmare = require( "nightmare" ),
                         .wait('#password')
                         .type('input[id="password"]', 'password8')
                         .type('input[id="password_verify"]', 'password8')
-                        // .evaluate(function() {
-                        //   return $('select[id="secret_question"] option:contains("color")').val()
-                        // })
+                        .type('input[id="secret_question_answer"]', 'blue')
 
-                        // });
+                        .evaluate(function() {
+                          return $('select[id="secret_question"] option:contains("color")').val()
+                        })
+                        .then(function(question) {
+                             return browser.select('#secret_question', question)
+                        })
 
-                        // .then(function() {
-                        //     //  return browser.select('#secret_question', value)
-                            
-                        // })
+                    console.log("before await");
 
-                        // not sure if i need this
-                        // .then(( ) => {
-                        //     done();
-                        // })
-                        // .catch((err) => {
-                        //     console.error('error: ', err);
-                        //     done(err);
-                        // });
-
-                    // ***********************************the code below is not executed
-
-                    console.log("before promise");
-                    let selectsubmit = new Promise((resolve, reject) => {
-                          console.log("creating promise!");
-                          myModule.submit(browser, done, form, myModule.state_select(browser, done, form), function() {
-                              console.log("promise resolved")
-                              resolve("Submitted");
-                          });
-                    });
+                    await myModule.state_select(browser, form);
+                    await myModule.submit(browser, form);
 
                     console.log("after promise");
                     
-                    selectsubmit.then(() => {
-                        return browser
-                            .then(function() {
-                              done();
-                            })
-                            .catch(error => {
-                                console.error('Error: ', error);
-                                done(error);
-                            });
-                    });
-                        
-                        // .wait(5000);
-                        //  .then(function() {
-                        //    return browser
-                        //      .type('input[id="secret_question_answer"]', 'blue')
-                        //      .click('button.submit_button')
-                        //      .catch(error => {
-                        //        console.error('Search failed:', error)
-                        //      });
-                        //  })
-                        //  .then(function() {
-                        //    browser
-                        //       .wait(4000)
-                        //       .evaluate(function() {
-                        //           return location.href;
-                        //       })
-                        //       .then(function(url) {
-                        //           expect(url.includes('payment')).to.equal(true);
-                        //       })
-                            // return browser
-                        
-                        //  })
-                })
-
-                .then(( ) => {
-                    done();
-                })
-                .catch((err) => {
-                    console.error('error: ', err);
-                    done(err);
+                    
                 });
-
-                
-
-              // });
-
-          });
-      });
+        });
+    });

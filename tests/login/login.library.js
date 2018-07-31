@@ -1,7 +1,6 @@
 const Nightmare = require( "nightmare" );
 
-module.exports.state_select = function (browser, done, selectors) {
-    console.log("state select");
+module.exports.state_select = function (browser, selectors) {
     browser
         .evaluate(function() {
             console.log("HELLO");
@@ -9,53 +8,33 @@ module.exports.state_select = function (browser, done, selectors) {
             return $(state).val()
         })
         .wait(5000)
-        .then(( ) => {
-            done();
-        })
-        .catch((err) => {
-            console.error('error: ', err);
-            done(err);
-        });
 }
 
-module.exports.submit = function (browser, done, selectors) {
-    console.log("submit func");
+module.exports.submit = function (browser, selectors) {
     browser
-        .type(selectors["secret_answer"], 'blue')
-        .click(selectors["password_submit"])
+        .type(selectors['secret_answer'], 'blue')
+        .click(selectors['password_submit'])
         .wait(5000)
         .catch(error => {
             console.error('Search failed:', error)
-        })
-        .then(function() {
-            submit_check(browser, done);
-        })
-        .then(( ) => {
-            done();
-        })
-        .catch((err) => {
-            console.error('error: ', err);
-            done(err);
         });
+
+    submit_check(browser);
 
 }
 
-function submit_check(browser, done) {
+async function submit_check(browser) {
+
+// module.exports.submit_check = function (browser) {
     console.log("submit check");
 
-    browser
+    await browser
         .evaluate(function() {
             return location.href;
         })
         .wait(5000)
-        .then(function(url) {
-            expect(url.includes('payment')).to.equal(true);
-        })
-        .then(function() {
-            done();
-        })
-        .catch(error => {
-            console.error('Error: ', error)
-            done(error);
+        .then(async function(url) {
+            console.log("within expect");
+            await expect(url.includes('payment')).to.equal(true);
         });
 }
