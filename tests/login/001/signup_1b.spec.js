@@ -1,13 +1,15 @@
-// /*
-// testing Funnel 1B's Log-In/Sign-Up page
-//
-// FIRST PAGE FOR FUNNEL 1B: https://www.kidguard.com/funnel/form/001/b?lander=home&
-// Description: Including "first name," "last name," "email," "phone," "state,"
-// and "zip code"
-//
-// SECOND PAGE FOR FUNNEL 1B
-// includes passowrd,verify password, and security question/answer
-// */
+/*
+
+testing Funnel 1B's Log-In/Sign-Up page
+
+FIRST PAGE FOR FUNNEL 1B: https://www.kidguard.com/funnel/form/001/b?lander=home&
+Description: Including "first name," "last name," "email," "phone," "state,"
+and "zip code"
+
+SECOND PAGE FOR FUNNEL 1B
+includes passowrd,verify password, and security question/answer
+
+*/
 
 "use strict";
 var myModule = require('../login.library.js');
@@ -22,6 +24,7 @@ const form = {
                   "expmonth": "input[name='expiration_month']", 
                   "expyear": "input[name='expiration_year']",
                   "zipcode": 'input[id="zipcode"]',
+                  "state": 'select[id="state"] option:contains("TX")',
                   "password": 'input[id="password"]', 
                   "verify": 'input[id="password_verify"]',
                   "secret_q": 'select[id="secret_question"] option:contains("color")',
@@ -46,6 +49,7 @@ const Nightmare = require( "nightmare" ),
     });
     jasmine.DEFAULT_TIMEOUT_INTERVAL = 50000;
 
+const base = {'selectors': form, 'page': browser};
 
     describe("Testing Funnel 1B Sign-Up/Log-in Page", function() {
 
@@ -66,67 +70,19 @@ const Nightmare = require( "nightmare" ),
                 });
         });
 
-        afterEach( function(done) {
-            browser.end().then(() => {
-                done()
-            });
+        // afterEach( function(done) {
+        //     browser.end().then(() => {
+        //         done()
+        //     });
 
-        });
+        // });
 
         it("Landing page 1B Sign-Up/Log-in test", async function () {
 
-            // const texas = await browser
-            await browser
-            
-                //SAME
-                .goto(BASE_URL)
-                .wait('#first_name')
-                .type('input[name="first_name"]', 'Aahad')
-                .type('input[name="last_name"]', 'Patel')
-                .type('input[name="email"]', 'aahad.patel786@gmail.com')
-                .type('input[name="phone"]', '469-258-6923')
+            await myModule.name(base);
+            await myModule.phone(base);
+            await myModule.location(base);
 
-                //DROPDOWN MENU
-                .evaluate(function() {
-                    return $('select[id="state"] option:contains("TX")').val();
-                })
-
-                .then( async function(state){
-                    console.log(state);
-                    await browser
-                        .select('#state', state)
-                        .wait('#zipcode')
-                        .type('input[id="zipcode"]', '75074')
-
-                        .click('button.submit_button')
-
-                        /*
-                        SECOND PAGE FOR FUNNEL 1B
-                        includes password,verify password, and security question/answer
-                        */
-
-
-                        //SAME
-                        .wait('#password')
-                        .type('input[id="password"]', 'password8')
-                        .type('input[id="password_verify"]', 'password8')
-                        .type('input[id="secret_question_answer"]', 'blue')
-
-                        .evaluate(function() {
-                          return $('select[id="secret_question"] option:contains("color")').val()
-                        })
-                        .then(function(question) {
-                             return browser.select('#secret_question', question)
-                        })
-
-                    console.log("before await");
-
-                    await myModule.state_select(browser, form);
-                    await myModule.submit(browser, form);
-
-                    console.log("after promise");
-                    
-                    
-                });
+            await myModule.password(base);
         });
     });
