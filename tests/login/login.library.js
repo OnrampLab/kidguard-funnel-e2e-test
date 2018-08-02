@@ -33,16 +33,10 @@ module.exports.location = async function (base) {
     console.log("SEND ME. YOUR LOCATION. " + base.selectors.zipcode);
     await base.page
         .type('input[id="zipcode"]', '75074')
-        // .then(function() {
-        //     console.log("before evaluate");
-        // })
-        .evaluate(function(base) {
-            console.log("within evaluate location");
+        .evaluate(function(zipcode) {
+            console.log("within evaluate location", zipcode);
             return $('select[id="state"] option:contains("TX")').val();
-            // console.log("state" + state);
-            // return state;
-        }, base)
-
+        }, base.selectors.zipcode)
         .then( async function(state) {
             console.log("location then" + state);
             await base.page
