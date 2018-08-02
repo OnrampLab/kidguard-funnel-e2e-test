@@ -9,21 +9,15 @@ module.exports.name = async function (base) {
         .type(base.selectors.last, 'Patel')
         .type(base.selectors.email, 'aahad.patel786@gmail.com')
 
-
-        
-        // 
-        // .wait(5000)
-        // .evaluate(function() {
-        //     console.log("grabbing url");
-        //     return location.href;
-        // })
-        // .then(async function(url) {
-        //     console.log
-        //     await submit_check(url);
-        // });
 }
 
-
+module.exports.details = function(base) {
+    console.log("extra details");
+    base.page
+        .wait('.container')
+        .click('input#most_worried_about_answer_0')
+        .click('input#relation_1');
+}
 
 module.exports.phone = function (base) {
     console.log("phone " + base.selectors.phone);
@@ -36,15 +30,21 @@ module.exports.phone = function (base) {
 
 
 module.exports.location = async function (base) {
-    console.log("SEND ME. YOUR LOCATION" + base.selectors.zipcode);
+    console.log("SEND ME. YOUR LOCATION. " + base.selectors.zipcode);
     await base.page
-        .evaluate(function() {
-            var state = $(base.selectors.state).val();
-            return state;
-        })
+        .type('input[id="zipcode"]', '75074')
+        // .then(function() {
+        //     console.log("before evaluate");
+        // })
+        .evaluate(function(base) {
+            console.log("within evaluate location");
+            return $('select[id="state"] option:contains("TX")').val();
+            // console.log("state" + state);
+            // return state;
+        }, base)
 
         .then( async function(state) {
-            console.log(state);
+            console.log("location then" + state);
             await base.page
                 .select('#state', state)
                 .wait('#zipcode')

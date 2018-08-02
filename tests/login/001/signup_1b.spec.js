@@ -40,6 +40,9 @@ const Nightmare = require( "nightmare" ),
         console.error( "Test-runner failed:", err );
     },
     browser = new Nightmare({
+        openDevTools: {
+            mode: 'detach'
+          },
         height: 678,
         width: 1024,
         show: true,
