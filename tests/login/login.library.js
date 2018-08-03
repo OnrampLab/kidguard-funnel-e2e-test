@@ -1,73 +1,75 @@
 const Nightmare = require( "nightmare" );
 
 module.exports.name = async function (base) {
-    console.log("question select " + base.selectors.name);
     await base.page
-        // .goto(BASE_URL)
         .wait(base.selectors.name)
         .type(base.selectors.name, 'Aahad')
         .type(base.selectors.last, 'Patel')
         .type(base.selectors.email, 'aahad.patel786@gmail.com')
+        .click(base.selectors['password_submit'])
 
 }
 
-module.exports.details = function(base) {
-    console.log("extra details");
-    base.page
-        .wait('.container')
-        .click('input#most_worried_about_answer_0')
-        .click('input#relation_1');
+module.exports.details = async function(base) {
+    await base.page
+        .wait(base.selectors.worry)
+        .click(base.selectors.worry)
+        .click(base.selectors.relation);
 }
 
-module.exports.phone = function (base) {
-    console.log("phone " + base.selectors.phone);
-    base.page
+module.exports.phone = async function (base) {
+    await base.page
         .wait(base.selectors.phone)
-        .type('input[name="phone"]', '4692586923');
-    console.log("got yo numba");
+        .type(base.selectors.phone, '4692586923');
 }
 
 
 
 module.exports.location = async function (base) {
-    console.log("SEND ME. YOUR LOCATION. " + base.selectors.zipcode);
     await base.page
-        .type('input[id="zipcode"]', '75074')
-        .evaluate(function(zipcode) {
-            console.log("within evaluate location", zipcode);
-            return $('select[id="state"] option:contains("TX")').val();
-        }, base.selectors.zipcode)
-        .then( async function(state) {
-            console.log("location then" + state);
+        .type(base.selectors.zipcode, '75074')
+        .wait(5000)
+        .evaluate(function(texas) {
+            return $(texas).val();
+        }, base.selectors.texas)
+        .then( async function(texas) {
             await base.page
-                .select('#state', state)
-                .wait('#zipcode')
-                .type('input[id="zipcode"]', '75074')
+                .select(base.selectors.state, texas)
         }); 
 }
 
+module.exports.payment = async function (base) {
+    await base.page
+        .type(base.selectors.card, '4242424242424242')
+        .type(base.selectors.cvv, '123')
+        .type(base.selectors.expmonth, '08')
+        .type(base.selectors.expyear, '2020')
+        .type(base.selectors.address, '3454 keelung rd.')
+        .type(base.selectors.city, 'Taipei')
+}
 
+module.exports.password = async function(base) {
+    var url = "";
+    await base.page
+        .wait(base.selectors.password)
+        .type(base.selectors.password, 'password8')
+        .type(base.selectors.verify, 'password8')
+        .type(base.selectors.secret_answer, 'blue')
 
-module.exports.password = function(base) {
-    console.log("password + verify");
-    const url = base.page
-        .click(base.selectors['password_submit'])
-        .wait('#password')
-        .type('input[id="password"]', 'password8')
-        .type('input[id="password_verify"]', 'password8')
-        .type('input[id="secret_question_answer"]', 'blue')
-
-        .evaluate(function() {
-            console.log("HELLO");
-            return $('select[id="secret_question"] option:contains("color")').val();
-        })
-        .then(function(question) {
-                return browser.select('#secret_question', question);
-        })
-        .click(selectors['password_submit'])
-        .evaluate(function() {
-            return location.href;
-        })
+        .evaluate(function(secret_q) {
+            return $(secret_q).val();
+        }, base.selectors.secret_q)
+        .then(async function(question) {
+            url = await base.page
+                .select('#secret_question', question)
+                .click(base.selectors['password_submit'])
+                .wait(10000)
+                .evaluate(function() {
+                    return location.href;
+                });
+        });
+        
+    console.log(url);
     submit_check(url);
         
 }
@@ -76,7 +78,5 @@ module.exports.password = function(base) {
 
 
 function submit_check(url) {
-    console.log(url);
-    expect(url.includes('payment')).to.equal(true);
-        
+    expect(url.includes('payment')).toBe(true);   
 }

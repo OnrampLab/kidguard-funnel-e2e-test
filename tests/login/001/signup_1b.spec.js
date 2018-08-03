@@ -15,22 +15,24 @@ includes passowrd,verify password, and security question/answer
 var myModule = require('../login.library.js');
 
 const form = { 
-                  "name": "input[name='first_name']",
-                  "last": 'input[name="last_name"]',
-                  "zipcode": "input[id='zipcode']", 
-                  "email": 'input[name="email"]',
-                  "phone": 'input[name="phone"]',
-                  "exp": "0", 
-                  "expmonth": "input[name='expiration_month']", 
-                  "expyear": "input[name='expiration_year']",
-                  "zipcode": 'input[id="zipcode"]',
-                  "state": 'select[id="state"] option:contains("TX")',
-                  "password": 'input[id="password"]', 
-                  "verify": 'input[id="password_verify"]',
-                  "secret_q": 'select[id="secret_question"] option:contains("color")',
-                  "secret_answer": 'input[id="secret_question_answer"]',
-                  "password_submit": 'button.submit_button'
-
+    "name": "input[name='first_name']",
+    "last": 'input[name="last_name"]',
+    "zipcode": "input[id='zipcode']", 
+    "email": 'input[name="email"]',
+    "phone": 'input[name="phone"]',
+    "exp": "0", 
+    "expmonth": "input[name='expiration_month']", 
+    "expyear": "input[name='expiration_year']",
+    "zipcode": 'input[id="zipcode"]',
+    "state": '#state',
+    "texas": 'select[id="state"] option:contains("TX")',
+    "password": 'input[id="password"]', 
+    "verify": 'input[id="password_verify"]',
+    "secret_q": 'select[id="secret_question"] option:contains("color")',
+    "secret_answer": 'input[id="secret_question_answer"]',
+    "worry": 'input#most_worried_about_answer_0',
+    "relation": 'input#relation_1',
+    "password_submit": 'button.submit_button'
 }
 
 const Nightmare = require( "nightmare" ),
@@ -73,19 +75,18 @@ const base = {'selectors': form, 'page': browser};
                 });
         });
 
-        // afterEach( function(done) {
-        //     browser.end().then(() => {
-        //         done()
-        //     });
+        afterEach( function(done) {
+            browser.end().then(() => {
+                done()
+            });
 
-        // });
+        });
 
         it("Landing page 1B Sign-Up/Log-in test", async function () {
 
-            await myModule.name(base);
             await myModule.phone(base);
             await myModule.location(base);
-
+            await myModule.name(base);
             await myModule.password(base);
         });
     });

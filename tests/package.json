@@ -1,0 +1,29 @@
+{
+  "name": "kidguard",
+  "version": "1.0.0",
+  "description": "",
+  "main": "funnel_test.spec.js",
+  "dependencies": {
+    "chai": "^4.1.2",
+    "jasmine": "^3.1.0",
+    "nightmare": "^3.0.1",
+    "query-string": "^6.1.0"
+  },
+  "devDependencies": {
+    "eslint": "^4.19.1",
+    "eslint-config-airbnb": "^17.0.0",
+    "eslint-plugin-import": "^2.13.0",
+    "eslint-plugin-jsx-a11y": "^6.1.1",
+    "eslint-plugin-react": "^7.10.0",
+    "jasmine-console-reporter": "^3.0.2"
+  },
+  "scripts": {
+    "test": "jasmine ./login/**/*.js tests/payment/001/**/*.js",
+    "testa": "jasmine ./payment/001/a/apayment.spec.js",
+    "testb": "jasmine ./payment/001/b/bpayment.spec.js",
+    "testc": "jasmine ./payment/001/c/cpayment.spec.js",
+    "testd": "jasmine ./payment/001/d/dpayment.spec.js"
+  },
+  "author": "",
+  "license": "ISC"
+}
