@@ -33,6 +33,7 @@ const Nightmare = require( "nightmare" ),
   
 var myModule = require('../login.library.js');
 
+/* selector ids for form 001/a */
 const form = { 
     "name": "input[name='first_name']",
     "last": 'input[name="last_name"]',
@@ -44,7 +45,7 @@ const form = {
     "cvv": 'input[id="sq-cvv"]',
     "exp": "0", 
     "expmonth": 'input[class="form-control ng-pristine ng-untouched ng-empty ng-valid-min ng-valid-max ng-invalid ng-invalid-required ng-valid-maxlength"]', 
-    "expyear": 'input[class="form-control ng-pristine ng-untouched ng-empty ng-invalid ng-invalid-required ng-valid-maxlength"]',
+    "expyear": 'input[name="expiration_year"]',
     "city": 'input[name="city"]',
     "state": '#state',
     "texas": 'select[id="state"] option:contains("TX")',
@@ -89,7 +90,8 @@ const base = {'selectors': form, 'page': browser};
             await myModule.phone(base);
             await myModule.location(base);
             await myModule.payment(base);
-            await myModule.password(base);
+
             await myModule.name(base);
+            await myModule.password(base);
         })
     });

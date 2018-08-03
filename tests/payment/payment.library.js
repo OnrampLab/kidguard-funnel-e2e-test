@@ -1,9 +1,9 @@
 const Nightmare = require( "nightmare" );
 const querystring = require('querystring');
 
-module.exports.formABCD_input = function (browser, done, selectors, input) {
+module.exports.formABCD_input = async function (browser, selectors, input) {
     console.log("\n Test for version " + selectors["version"]);
-    browser
+    await browser
         .wait(selectors["checkbox"])
         .type(selectors["address"], input["address"])
         .type(selectors["city"], input["city"])
@@ -33,34 +33,18 @@ module.exports.formABCD_input = function (browser, done, selectors, input) {
         })
 
         .then(function() {
-            return submit_check(browser, done);
+            return submit_check(browser);
         })
-
-        .then(( ) => {
-            done();
-        })
-        .catch((err) => {
-            console.error('error: ', err);
-            done(err);
-        });
 
 }
 
-function submit_check(browser, done) {
-    return browser
+async function submit_check(browser) {
+    await browser
         /* expectation to determine if submit button is enabled */
-        .evaluate(function() {
+        .evaluate(async function() {
             return $('button').attr('disabled');
         })
         .then(function(submit_button) {
             expect(submit_button).toBe(null); 
         })
-
-        .then(( ) => {
-            done();
-        })
-        .catch((err) => {
-            console.error('error: ', err);
-            done(err);
-        });
 }   

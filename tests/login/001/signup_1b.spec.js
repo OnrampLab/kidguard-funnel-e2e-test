@@ -14,6 +14,8 @@ includes passowrd,verify password, and security question/answer
 "use strict";
 var myModule = require('../login.library.js');
 
+
+/* selector ids for form 001/b */
 const form = { 
     "name": "input[name='first_name']",
     "last": 'input[name="last_name"]',

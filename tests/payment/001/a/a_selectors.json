@@ -1,0 +1,9 @@
+{ 
+    "name": "input[name='name_on_card']", 
+    "cardnum": "input[name='card_number']", 
+    "cvc": "input[name='cvv']", 
+    "zipcode": "input[name='zipcode']", 
+    "exp": "0", 
+    "expmonth": "input[name='expiration_month']", 
+    "expyear": "input[name='expiration_year']" 
+}

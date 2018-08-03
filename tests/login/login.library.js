@@ -1,4 +1,15 @@
 const Nightmare = require( "nightmare" );
+const { execFile } = require('child_process');
+
+
+var payment = require('../payment/payment.library.js');
+var helper = require('../payment/formhelper.js');
+const payment_a = require('../payment/001/a/a_selectors.json')
+const payment_b = require('../payment/001/b/b_selectors.json')
+const payment_c = require('../payment/001/c/c_selectors.json')
+const payment_d = require('../payment/001/d/d_selectors.json')
+var input = require('../payment/data.json');
+
 
 module.exports.name = async function (base) {
     await base.page
@@ -70,13 +81,37 @@ module.exports.password = async function(base) {
         });
         
     console.log(url);
-    submit_check(url);
-        
+    await check_and_continue(url, base.page);
 }
 
 
 
+/*
+    This function checks to make sure all the login information is inputted. Then, calls the 
+    corresponding payment test to test the payment portion of the form
+*/
 
-function submit_check(url) {
-    expect(url.includes('payment')).toBe(true);   
+async function check_and_continue(url, browser) { 
+    expect(url.includes('payment')).toBe(true);
+    var payment_selectors;
+
+    if (url.includes('011/a')) {
+        console.log('011/a');
+        payment_selectors = helper.selectorgenerator(payment_a, '011/a');
+
+    } else if (url.includes('011/b')) {
+        console.log('011/b');
+        payment_selectors = helper.selectorgenerator(payment_b, '011/b');
+        console.log(payment_selectors);
+    } else if (url.includes('011/c')) {
+        console.log("'011/c'");
+        payment_selectors = helper.selectorgenerator(payment_c, '011/c');
+    } else if (url.includes('011/d')) {
+        console.log('011/d');
+        payment_selectors = helper.selectorgenerator(payment_d, '011/c');
+    }
+
+
+    await payment.formABCD_input(browser, payment_selectors, input);    
 }
+
