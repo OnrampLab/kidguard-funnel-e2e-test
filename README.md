@@ -1,9 +1,12 @@
 # kidguard-funnel-e2e-test
 
-
 ## install
 
 npm install
+
+or
+
+yarn install
 
 
 ## payment test
@@ -18,3 +21,4 @@ node node_modules/jasmine/bin/jasmine.js tests/login/00[form]/signup_[form+versi
 
 ex. "node node_modules/jasmine/bin/jasmine.js tests/login/003/signup_3b.spec.js"
 
+npm test
