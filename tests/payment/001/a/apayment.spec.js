@@ -54,8 +54,8 @@ const Nightmare = require( "nightmare" ),
 
         });
 
-        it ("should submit with all forms filled for 'try now' button", function(done) {
+        it ("should submit with all forms filled for 'try now' button", async function() {
             var selectors = helper.selectorgenerator(form, version);
-            myModule.formABCD_input(browser, done, selectors, input);     
+            await myModule.formABCD_input(browser, selectors, input);     
         });
     });

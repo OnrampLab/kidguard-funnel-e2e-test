@@ -25,6 +25,8 @@ const Nightmare = require( "nightmare" ),
       });
       jasmine.DEFAULT_TIMEOUT_INTERVAL = 50000;
 
+
+/* selector ids for form 002/c */
 const form = { 
     "name": "input[name='first_name']",
     "last": 'input[name="last_name"]',

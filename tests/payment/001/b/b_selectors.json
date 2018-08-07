@@ -1,0 +1,9 @@
+{ 
+                "name": "#name_on_card", 
+                "cardnum": "#stripe-card-number input", 
+                "cvc": "#stripe-card-cvc input", 
+                "zipcode": "#stripe-postal-code", 
+                "exp": "#stripe-card-expiry input", 
+                "expmonth": "0", 
+                "expyear": "0" 
+}
