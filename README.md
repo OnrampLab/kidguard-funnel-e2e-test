@@ -20,5 +20,3 @@ ex. "npm run testa"
 node node_modules/jasmine/bin/jasmine.js tests/login/00[form]/signup_[form+version].spec.js
 
 ex. "node node_modules/jasmine/bin/jasmine.js tests/login/003/signup_3b.spec.js"
-
-npm test
